@@ -1,23 +1,50 @@
-import Head from 'next/head'
+import { useState, useEffect } from "react";
+import HomeTitle from "../components/home/title";
+import HomeButtons from "../components/home/buttons";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  const [featuresVisible, setFeaturesVisible] = useState(false);
+  const [pricingVisible, setPricingVisible] = useState(false);
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+  useEffect(() => {
+    if (featuresVisible) setPricingVisible(false);
+  }, [featuresVisible]);
+
+  useEffect(() => {
+    if (pricingVisible) setFeaturesVisible(false);
+  }, [pricingVisible]);
+
+  return (
+    <div className="bg-gray-600 flex flex-auto py-2 items-center justify-center">
+      <main className="flex flex-col items-center justify-center w-full text-center text-white">
+        <HomeTitle />
+        <HomeButtons
+          featuresVisible={featuresVisible}
+          setFeaturesVisible={setFeaturesVisible}
+          pricingVisible={pricingVisible}
+          setPricingVisible={setPricingVisible}
+        />
+
+        {featuresVisible || pricingVisible ? (
+          <div className="h-96 w-2/5 bg-gray-400 mt-10 rounded-2xl">
+            {featuresVisible ? (
+              <div>Tracking of calorie intake, workouts, and more!</div>
+            ) : null}
+            {pricingVisible ? <div>Totally and absolutely free!</div> : null}
+          </div>
+        ) : null}
+      </main>
+
+      {/* <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
+          Welcome to{" "}
+          <a className="text-blue-600" href="https:nextjs.org">
             Next.js!
           </a>
         </h1>
 
         <p className="mt-3 text-2xl">
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
             pages/index.js
           </code>
@@ -25,7 +52,7 @@ export default function Home() {
 
         <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
           <a
-            href="https://nextjs.org/docs"
+            href="https:nextjs.org/docs"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
           >
             <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
@@ -35,7 +62,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://nextjs.org/learn"
+            href="https:nextjs.org/learn"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
           >
             <h3 className="text-2xl font-bold">Learn &rarr;</h3>
@@ -45,7 +72,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
+            href="https:github.com/vercel/next.js/tree/master/examples"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
           >
             <h3 className="text-2xl font-bold">Examples &rarr;</h3>
@@ -55,7 +82,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https:vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
           >
             <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
@@ -64,19 +91,7 @@ export default function Home() {
             </p>
           </a>
         </div>
-      </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
+      </main> */}
     </div>
-  )
+  );
 }
